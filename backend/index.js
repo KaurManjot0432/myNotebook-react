@@ -4,7 +4,8 @@ const router = require('./src/routes/index');
 
 connect();  
 const app = express();
-const port = 3000;
+app.use(express.json());
+const port = 3001;
 app.use('/',router);
 
 app.listen(port, () => {
