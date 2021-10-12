@@ -31,6 +31,41 @@ const getNotes = async (req,res)=>{
     }
 }
 
+const updateNotes = async (req, res)=>{
+    const {title, description, tag} = req.body;
+    // Create a newNote object
+    const newNote  = {};
+    if(title){newNote.title = title};
+    if(description){newNote.description = description};
+    if(tag){newNote.tag = tag};
 
+    // Find the note to be updated and update it
+    let doc = await note.findById(req.params.id);
+    if(!doc){return res.status(404).send("Not Found")}
 
-module.exports = { createNote, getNotes };
+    if(doc.user.toString() !== req.user.id){
+        return res.status(401).send("Not Allowed");
+    }
+
+    doc = await note.findByIdAndUpdate(req.params.id, {$set: newNote}, {new:true})
+    res.json({doc});
+}
+
+const deleteNotes = async (req, res)=>{
+    try{
+        const doc = await note.findById(req.params.id);
+        if(!doc){return res.status(404).send("Not Found")}
+        console.log(doc);
+        if(doc.user == req.user.id){
+            doc.remove();
+            res.status(200).json({data:doc});
+        } else {
+            return res.status(401).send("Not Allowed");
+        }
+    } catch(e){
+        console.error(e);
+        res.status(400).end();
+    }
+}
+
+module.exports = { createNote, getNotes, updateNotes, deleteNotes };
