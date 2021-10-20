@@ -9,5 +9,5 @@ const port = 3001;
 app.use('/',router);
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`myNotbook app listening at http://localhost:${port}`)
 })
