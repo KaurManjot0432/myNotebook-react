@@ -16,7 +16,7 @@ const NoteState = (props)=>{
           },
           {
             "_id": "616f665ba9a10245001691d1",
-            "user": "615dc44b512b083e080b6ce6",
+            "user": "615dc44b512b083080b6ce6",
             "title": "Motivational quotes",
             "description": "Your time to rock will come!!",
             "tag": "Motivation",
@@ -29,7 +29,6 @@ const NoteState = (props)=>{
 
       //add a note
       const addNote = (title, description, tag)=>{
-        console.log(title, description,tag);
         const note = {
           "_id": "616f665ba9a10245001691d1",
           "user": "615dc44b512b083e080b6ce6",
@@ -43,13 +42,14 @@ const NoteState = (props)=>{
       }
 
       //update a note
-      const updateNote = ()=>{
+      const updateNote = (id, title, description, tag)=>{
 
       }
 
       //delete a note
-      const deleteNote = ()=>{
-
+      const deleteNote = (id)=>{
+        const newNotes = notes.filter((note)=>{return note._id!==id});
+        setnotes(newNotes);
       }
    
     return (

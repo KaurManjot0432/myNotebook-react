@@ -20,15 +20,15 @@ const AddNote = () => {
             <h1>Add a Note</h1>
             <form>
                 <div className="mb-3">
-                    <label htmFor="title" className="form-label">Title</label>
+                    <label htmlFor="title" className="form-label">Title</label>
                     <input type="text" className="form-control" onChange={onChange} name="title" id="title" aria-describedby="emailHelp"/>
                 </div>
                 <div className="mb-3">
-                    <label htmFor="description" className="form-label">Description</label>
+                    <label htmlFor="description" className="form-label">Description</label>
                     <input type="text" className="form-control" onChange={onChange} name="description" id="description"/>
                 </div>
                 <div className="mb-3">
-                    <label htmFor="tag" className="form-label">Tag</label>
+                    <label htmlFor="tag" className="form-label">Tag</label>
                     <input type="text" className="form-control" onChange={onChange} name="tag" id="tag"/>
                 </div>
                 <button type="submit" className="btn btn-primary" onClick={HandleClick}>Add</button>

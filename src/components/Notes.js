@@ -4,7 +4,7 @@ import Noteitem from './Noteitem';
 
 const Notes = () => {
     const context = useContext(noteContext);
-    const {notes, setnotes} = context;
+    const {notes} = context;
     return (
         <div>
              <div className="container my-3">
