@@ -7,13 +7,13 @@ const AddNote = () => {
     const { addNote } = context;
     const [note, setnote] = useState({title:"", description:"", tag:""});
     
-    const onChange = (e)=>{
+   const onChange = (e)=>{
         setnote({...note,[e.target.name]: e.target.value});
     }
     const HandleClick = (e)=>{
         e.preventDefault();
         addNote(note.title, note.description, note.tag);
-    }
+    } 
 
     return (
         <div className="container">
