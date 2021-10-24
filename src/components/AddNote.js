@@ -1,7 +1,7 @@
 import React, {useContext, useState } from 'react';
 import noteContext from '../context/notes/noteContext';
 
-const AddNote = () => {
+const AddNote = (props) => {
 
     const context = useContext(noteContext);
     const { addNote } = context;
@@ -13,6 +13,7 @@ const AddNote = () => {
     const HandleClick = (e)=>{
         e.preventDefault();
         addNote(note.title, note.description, note.tag);
+        props.showAlert("Note added successfully","success");
     } 
 
     return (
@@ -21,15 +22,15 @@ const AddNote = () => {
             <form>
                 <div className="mb-3">
                     <label htmlFor="title" className="form-label">Title</label>
-                    <input type="text" className="form-control" onChange={onChange} name="title" id="title" aria-describedby="emailHelp"/>
+                    <input type="text" className="form-control" onChange={onChange} name="title" id="title" minLength={3} required aria-describedby="emailHelp"/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="description" className="form-label">Description</label>
-                    <input type="text" className="form-control" onChange={onChange} name="description" id="description"/>
+                    <input type="text" className="form-control" onChange={onChange} name="description" minLength={5} required id="description"/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="tag" className="form-label">Tag</label>
-                    <input type="text" className="form-control" onChange={onChange} name="tag" id="tag"/>
+                    <input type="text" className="form-control" onChange={onChange} name="tag" minLength={3} id="tag"/>
                 </div>
                 <button type="submit" className="btn btn-primary" onClick={HandleClick}>Add</button>
             </form>

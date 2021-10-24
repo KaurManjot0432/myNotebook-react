@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 
-const Login = () => {
+const Login = (props) => {
     const [credentials, setcredentials] = useState({ email: "", password: "" });
 
     let history = useHistory();
@@ -22,8 +22,9 @@ const Login = () => {
         if(res.success){
             localStorage.setItem('token',res.authtoken);
             history.push("/");
+            props.showAlert("Loged in successfully!","success");
         } else {
-            alert("invalid Credentials");
+            props.showAlert("Invalid Credentials!","danger");
         }
 
     }
@@ -33,7 +34,7 @@ const Login = () => {
     }
     return (
         <>
-            <h1 className="head">Log in to myNotebook</h1>
+            <h1 className="my-2">Log in to myNotebook</h1>
 
             <form onSubmit={handleClick}>
                 <div className="form-group">
@@ -46,7 +47,7 @@ const Login = () => {
                     <input type="password" className="form-control" id="password" name="password" value={credentials.password} onChange={onChange} />
                 </div>
 
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary my-3">Submit</button>
             </form>
         </>
     )
