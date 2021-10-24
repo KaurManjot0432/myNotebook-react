@@ -7,8 +7,9 @@ const JWT_SECRET = 'manjot@kaur';
 
 const create = async (req, res) => {
     const errors = validationResult(req);
+    let success = false;
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({success, errors: errors.array() });
     }
     try {
 
@@ -27,11 +28,12 @@ const create = async (req, res) => {
                     id: user.id
                 }
             }
+            success = true;
             const auth_token = jwt.sign(data, JWT_SECRET,  { expiresIn: '1800s' });
 
-            res.json({ auth_token })
+            res.json({success, auth_token })
         } else {
-            return res.status(400).json({ error: "email already taken" });
+            return res.status(400).json({success,error: "email already taken" });
         }
 
     } catch (err) {
@@ -42,20 +44,21 @@ const create = async (req, res) => {
 
 const signin = async (req, res) => {
     const errors = validationResult(req);
+    let success = false;
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({success, errors: errors.array() });
     }
 
     try {
 
         const User = await user.findOne({ email: req.body.email });
         if (!User) {
-            return res.status(400).json({ error: "Enter valid credentials!" });
+            return res.status(400).json({ success, error: "Enter valid credentials!" });
         }
         const checkPassword = await bcrypt.compare(req.body.password, User.password);
 
         if (!checkPassword) {
-            return res.status(400).json({ error: "Enter valid credentials!" });
+            return res.status(400).json({ success, error: "Enter valid credentials!" });
         }
 
         const data = {
@@ -64,8 +67,8 @@ const signin = async (req, res) => {
             }
         }
         const authtoken = jwt.sign(data, JWT_SECRET);
-
-        res.json({ authtoken })
+        success = true;
+        res.json({ success, authtoken })
 
     } catch (err) {
         console.error(err);
